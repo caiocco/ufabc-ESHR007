@@ -1,0 +1,764 @@
+% Trabalho de Política Habitacional
+%
+% Abaixo seguem orientações originais do modelo utilizado.
+%
+% Siga para o conteúdo do trabalho descendo até a linha 908.
+%
+% ==============================================================
+%
+% Modelo para monografia de final de curso, em conformidade
+% com normas da ABNT implementadas pelo projeto abntex2.
+%
+% Este arquivo é fortemente baseado em exemplo distribuído no
+% mesmo projeto. O projeto abntex2 pode ser acessado pela página
+% http://abntex2.googlecode.com/
+%
+% Este arquivo pode ser rodado tanto com o pdflatex quanto com
+% o lualatex.  Como contém referências bibliográficas a serem
+% processadas pelo programa bibtex, este programa deve ser
+% executado. Em resumo, a ordem de execução deve ser:
+% rodar primeiro o pdflatex (ou o lualatex), depois o bibtex e,
+% a seguir, o pdflatex (ou o lualatex ) novamente mais duas vezes,
+% para assegurar que todas as referências bibliográficas e 
+% citações estejam atualizadas.
+%
+% Para adaptar os textos para uso pessoal, usar os comandos
+% imediatamente antes do \begin{document} (iniciando com o
+% comando \titulo).  
+%
+% Este modelo está adaptado para monografias de final de curso
+% em matemática da UFRJ, mas, com o uso das variáveis, pode ser
+% usado para outros tipos de trabalho (mestrado, doutorado),
+% outros cursos, universidades etc.  Caso a adaptação das
+% variáveis não seja suficiente, pode-se alterar os comandos
+% imprimircapa, imprimirfolhaderosto e imprimiraprovação, 
+% fazendo as alterações necessárias.  Como os comandos definidos
+% neste texto usam somente LaTeX, a sua adaptação deve ser 
+% simples, bastando algum conhecimento de LaTeX.
+%
+% O restante do preâmbulo provavelmente  não necessitará ser
+% alterado, a menos, eventualmente, das opções de chamada da
+% classe abntex2, que estão definidas a seguir.
+% 
+\documentclass[ 
+% -- opções da classe memoir que é a classe base da abntex2 --
+% tamanho da fonte
+12pt,
+% capítulos começam em pág ímpar. Insere pág vazia, se preciso
+openright,
+% para imprimir uma página por folha ou visualização em video 
+oneside,
+% frente e verso. Margens das pag. ímpares diferem das pares.
+%  twoside,
+% tamanho do papel. 
+a4paper,
+% Caio - Ocultando bordas horríveis em hiperligações
+hidelinks,
+% -- opções da classe abntex2 --
+% títulos de capítulos convertidos em letras maiúsculas
+%  chapter=TITLE,
+% títulos de seções convertidos em letras maiúsculas
+%  section=TITLE,
+% títulos de subseções convertidos em letras maiúsculas
+%  subsection=TITLE,
+% títulos de subsubseções convertidos em letras maiúsculas
+%  subsubsection=TITLE,
+% -- opções do pacote babel --
+english,   % idioma adicional para hifenização
+portuguese,   % o último idioma é o principal do documento
+oldfontcommands,
+]{abntex2}
+%
+% ==============================================================
+%
+% --------------------------------------------------------------
+% Adicionando pacotes para recursos adicionais e defindo opções
+% pertinentes
+% --------------------------------------------------------------
+%
+% cabeçalho comum para uso com lualatex ou pdflatex
+\usepackage{ifluatex}
+% opções para uso com o lualatex
+\ifluatex
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+% o fonte small caps é diferente no latin modern
+\fontspec[SmallCapsFont={Latin Modern Roman Caps}]{Latin Modern Roman}
+% pacotes da AMS 
+\usepackage{amsmath,amsthm} 
+% pacote para fonte específico para símbolos matemáticos
+\usepackage{unicode-math}
+\setmathfont{Latin Modern Math}
+% latin modern tem simbolos de mathbb muito feios.
+%  Trocar o fonte para estes simbolos.
+\setmathfont[range=\mathbb]{Tex Gyre Pagella Math}
+% opções para uso com o pdflatex
+\else
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{etoolbox}
+% pacotes da AMS 
+\usepackage{amsmath,amssymb,amsthm} 
+% Mapear caracteres especiais no PDF
+\usepackage{cmap}
+\fi
+
+% pacotes usados tanto pelo lualatex quanto pelo pdflatex
+\usepackage{lastpage}    % Usado pela Ficha catalográfica
+\usepackage{indentfirst} % Indenta primeiro parágrafo 
+\usepackage{color}       % Controle das cores
+\usepackage{graphicx}    % Inclusão de gráficos
+\usepackage{wrapfig}     % gráficos ao redor do texto
+% pacote para ajustar os fontes em cada linha de forma a
+% respeitar as margens
+\usepackage{microtype}
+% permite a gravação de texto em um arquivo indicado a partir
+% deste arquivo.  Originalmente foi usado para criar o arquivo
+% .bib com conteúdo de exemplo, evitando a edição de um arquivo
+% .bib somente para a bibliografia
+\usepackage{filecontents}
+
+% Caio - diagramas
+% http://www.texample.net/tikz/examples/smart-priority/
+%\usepackage{smartdiagram}
+
+% Caio - ladeando imagens
+% https://tex.stackexchange.com/questions/57433/cannot-use-caption-under-minipage
+\usepackage{caption}
+
+% Caio - preciso de tabelas longas
+% http://www.tex.ac.uk/FAQ-figurehere.html
+\usepackage{longtable}
+
+% Caio - quero alternar as cores das linhas da tabela
+% https://tex.stackexchange.com/questions/107944/alternate-row-colors-in-longtable
+\usepackage[table]{xcolor}
+\definecolor{lightgray}{gray}{0.9}
+
+% Caio - tentando melhorar o posicionamento das imagens
+\usepackage{float}
+
+% Caio - corrigindo espaçamento conforme http://tex.stackexchange.com/questions/5683/how-to-remove-top-and-bottom-whitespace-of-longtable
+\setlength{\LTpre}{0pt}
+\setlength{\LTpost}{0pt}
+
+% Caio - preciso de plotagens
+%\usepackage{pgfplots}
+%\pgfplotsset{compat=1.8}
+
+% Caio - quero usar letras nas listas do enumerate conforme https://tex.stackexchange.com/questions/2291/how-do-i-change-the-enumerate-list-format-to-use-letters-instead-of-the-defaul
+\usepackage{enumitem}
+
+% Caio - modo paisagem para tabelões
+\usepackage{lscape}
+
+% Caio - adicionando o pacote hyperref
+\usepackage{hyperref}
+% - e definindo metadados do PDF e comportamento dos links
+\hypersetup{
+	%pagebackref=true,
+	pdftitle={Resenha do filme ``Um Fio de Esperança: Independência ou Guerra no Saara Ocidental''}, 
+	pdfauthor={Vários},
+	pdfsubject={Geografia Política},
+	colorlinks=false,      		% false: boxed links; true: colored links
+	linkcolor=blue,          	% color of internal links
+	citecolor=blue,        		% color of links to bibliography
+	filecolor=magenta,      	% color of file links
+	urlcolor=blue,
+	bookmarksdepth=4
+}
+
+% Caio - separação silábica
+%\hyphenation{}
+
+% Caio - citações mais poderosas
+%\usepackage[autostyle]{csquotes}
+
+%-----------------------------------------------------------
+%-----------------------------------------------------------
+% Caio - habilitar glossário
+\usepackage{glossaries}
+\makeglossaries
+
+% \newglossaryentry{ex}{name={sample},description={an example}}
+\newglossaryentry{onu}{
+	name={ONU},
+	description={Organização das Nações Unidas}
+}
+
+\newglossaryentry{minurso}{
+	name={MINURSO},
+	description={Missão das Nações Unidas para o referendo no Saara Ocidental}
+}
+
+\newglossaryentry{rasd}{
+	name={RASD},
+	description={República Árabe Saaraui Democrática}
+}
+
+\newglossaryentry{polisario}{
+	name={Frente Polisário},
+	description={Frente Popular de Liberación de Saguía el Hamra y Río de Oro}
+}
+
+%-----------------------------------------------------------
+%-----------------------------------------------------------
+% Comandos para definir ambientes tipo teorema em português 
+\newtheorem{meuteorema}{Teorema}[chapter]
+\newtheorem{meuaxioma}{Axioma}[chapter]
+\newtheorem{meucorolario}{Corolário}[chapter]
+\newtheorem{meulema}{Lema}[chapter]
+\newtheorem{minhaproposicao}{Proposição}[chapter]
+\newtheorem{minhadefinicao}{Definição}[chapter]
+\newtheorem{meuexemplo}{Exemplo}[chapter]
+\newtheorem{minhaobservacao}{Observação}[chapter]
+%-----------------------------------------------------------
+%-----------------------------------------------------------
+% Pacotes de citações
+\usepackage[brazilian,hyperpageref]{backref}
+\usepackage[alf]{abntex2cite}   % Citações padrão ABNT
+%\usepackage[num]{abntex2cite}  % Citações numéricas
+% --- 
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+	Nenhuma citação no texto.%
+	\or
+	Citado na página #2.%
+	\else
+	Citado #1 vezes nas páginas #2.%
+	\fi}%
+% --- 
+% --- 
+% Espaço em branco no início do parágrafo
+\setlength{\parindent}{1.3cm}
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+% ---
+% compila o indice, se este for incluído no texto
+\makeindex
+%
+% --------------------------------------------------------- 
+% ---------------------------------------------------------
+% Redefinindo o comando do abntex2 para gerar uma capa  
+\renewcommand{\imprimircapa}{%
+	\begin{capa}
+		\begin{flushleft} 
+			{\centering \Large \textsc{\imprimirinstituicao  \\
+					\imprimircurso \\} }
+		\end{flushleft}
+		
+		\vfill
+		\begin{center}
+			{\large \imprimirautor} \\
+			\vspace*{0.5cm}
+			{\Large \textit{\imprimirtitulo}}
+		\end{center}
+		
+		\vfill
+		\begin{center}
+			{\large{\imprimirlocal \\ \imprimirano  }}
+		\end{center}
+		\vspace*{1cm} 
+	\end{capa}
+	
+}
+
+% ---------------------------------------------------------
+% ---------------------------------------------------------
+%
+%
+% ---------------------------------------------------------
+% ---------------------------------------------------------
+% Redefinindo o comando para gerar uma folha de rosto 
+\renewcommand{\imprimirfolhaderosto}{%
+	\begin{center}
+		{\large \imprimirautor}
+	\end{center}
+	\vfill \vfill \vfill \vfill
+	\begin{center}
+		{\Large \textit{\imprimirtitulo}}
+	\end{center}
+	
+	\vfill \vfill \vfill 
+	\begin{flushright} 
+		\parbox{0.5\linewidth}{
+			\imprimirtipotrabalho\, relacionado ao 
+			\imprimircurso\, da \imprimirsigla\, 
+			entregue como parte do
+			processo de graduação para a obtenção do 
+			grau de \imprimirgrau.}
+	\end{flushright} 
+	
+	\vfill 
+	\begin{flushright} 
+		\parbox{0.5\linewidth}{ \imprimirorientadorRotulo 
+			\imprimirorientador\\ \imprimirttorientador}
+	\end{flushright} 
+	
+	\ifdefvoid{\imprimircoorientador}{}{
+		\begin{flushright} 
+			\parbox{0.5\linewidth}{ \imprimircoorientadorRotulo 
+				\imprimircoorientador\\ \imprimirttcoorientador}
+		\end{flushright}
+	}
+	
+	\vfill \vfill \vfill \vfill \vfill \vfill \vfill
+	\begin{center}
+		{\large{\imprimirlocal \\ \imprimirano}}
+	\end{center}
+	\vspace*{1cm} \newpage
+}
+% Final do comando para gerar uma folha de rosto 
+% ---------------------------------------------------------
+% ---------------------------------------------------------
+%
+%
+% ---------------------------------------------------------
+% ---------------------------------------------------------
+% Definindo o comando para gerar uma folha de defesa 
+\newcommand{\imprimirfolhadeaprovacao}{%
+	\begin{center}
+		{\large \imprimirautor}
+	\end{center}
+	\vfill \vfill \vfill \vfill
+	\begin{center}
+		{\Large \textit{\imprimirtitulo}}
+	\end{center}
+	
+	\vfill \vfill \vfill \vfill \vfill \vfill
+	\begin{flushright} 
+		\parbox{0.5\linewidth}{
+			%			\imprimirtipotrabalho\,apresentada ao 
+			%			\imprimircurso\, da \imprimirsigla\, como requisito
+			%			para a obtenção parcial do grau de \imprimirgrau.}
+		}
+	\end{flushright} 
+	\vfill \vfill \vfill \vfill
+	Aprovada em \data.
+	
+	\vfill \vfill \vfill \vfill
+	
+	\begin{center}
+		\textbf{BANCA EXAMINADORA}
+		
+		\vfill\vfill\vfill
+		\rule{10cm}{.1pt}\\
+		{\imprimirexaminadorum} \\ {\imprimirttexaminadorum}
+		
+		\ifdefvoid{\imprimirexaminadordois}{}{
+			\vfill\vfill
+			\rule{10cm}{.1pt}\\
+			\imprimirexaminadordois \\ \imprimirttexaminadordois }
+		
+		\ifdefvoid{\imprimirexaminadortres}{}{
+			\vfill\vfill
+			\rule{10cm}{.1pt}\\
+			\imprimirexaminadortres \\ \imprimirttexaminadortres }
+		
+		\ifdefvoid{\imprimirexaminadorquatro}{}{
+			\vfill\vfill
+			\rule{10cm}{.1pt}\\
+			\imprimirexaminadorquatro \\ \imprimirttexaminadorquatro }
+	\end{center}
+	
+	\vfill \vfill 
+	\begin{center}
+		{\large{\imprimirlocal \\ \imprimirano}}
+	\end{center}
+	\vspace*{1cm}
+	\newpage
+}
+% Final do comando para gerar uma folha de defesa 
+% ---------------------------------------------------------
+% --------------------------------------------------------
+%
+%
+%
+%
+%
+% ---------------------------------------------------------
+% --------------------------------------------------------
+% definindo variáveis adicionais 
+\providecommand{\imprimirsigla}{}
+\newcommand{\sigla}[1]{\renewcommand{\imprimirsigla}{#1}}
+%
+\providecommand{\imprimircurso}{}
+\newcommand{\curso}[1]{\renewcommand{\imprimircurso}{#1}}
+%
+\providecommand{\imprimirano}{}
+\newcommand{\ano}[1]{\renewcommand{\imprimirano}{#1}}
+%
+\providecommand{\imprimirgrau}{}
+\newcommand{\grau}[1]{\renewcommand{\imprimirgrau}{#1}}
+%
+\providecommand{\imprimirexaminadorum}{}
+\newcommand{\examinadorum}[1]{
+	\renewcommand{\imprimirexaminadorum}{#1}}
+%
+\providecommand{\imprimirexaminadordois}{}
+\newcommand{\examinadordois}[1]{
+	\renewcommand{\imprimirexaminadordois}{#1}}
+%
+\providecommand{\imprimirexaminadortres}{}
+\newcommand{\examinadortres}[1]{
+	\renewcommand{\imprimirexaminadortres}{#1}}
+%
+\providecommand{\imprimirexaminadorquatro}{}
+\newcommand{\examinadorquatro}[1]{
+	\renewcommand{\imprimirexaminadorquatro}{#1}}
+%
+\providecommand{\imprimirttorientador}{}
+\newcommand{\ttorientador}[1]{
+	\renewcommand{\imprimirttorientador}{#1}} 
+%
+\providecommand{\imprimirttcoorientador}{}
+\newcommand{\ttcoorientador}[1]{
+	\renewcommand{\imprimirttcoorientador}{#1}}
+%
+\providecommand{\imprimirttexaminadorum}{}
+\newcommand{\ttexaminadorum}[1]{
+	\renewcommand{\imprimirttexaminadorum}{#1}}
+%
+\providecommand{\imprimirttexaminadordois}{}
+\newcommand{\ttexaminadordois}[1]{\renewcommand{
+		\imprimirttexaminadordois}{#1}}
+%
+\providecommand{\imprimirttexaminadortres}{}
+\newcommand{\ttexaminadortres}[1]{
+	\renewcommand{\imprimirttexaminadortres}{#1}}
+%
+\providecommand{\imprimirttexaminadorquatro}{}
+\newcommand{\ttexaminadorquatro}[1]{
+	\renewcommand{\imprimirttexaminadorquatro}{#1}}
+% fim da definição de variáveis adicionais
+% ---------------------------------------------------------
+% ---------------------------------------------------------
+%
+% ---
+% ---
+% ---
+% ---
+% ---
+% ---
+% ---
+% ---
+% ---
+% Informações de dados para CAPA, FOLHA DE ROSTO e FOLHA DE DEFESA
+%
+%----------------- Título e Dados do Autor -----------------
+\titulo{Resenha do filme ``Um Fio de Esperança: Independência ou Guerra no Saara Ocidental''}
+\autor{Caio César C. Ortega \and
+	Gabriel Alves \and
+	Henrique Tutida \and
+	Lorrayne Martinhão \and
+	Nicholas Charles Bezerra
+}
+%
+
+%----------Informações sobre a Instituição e curso -----------------
+\instituicao{Universidade Federal do ABC \\
+	Centro de Engenharia, Modelagem e Ciências Sociais Aplicadas}
+%
+\sigla{UFABC}
+%
+\curso{Bacharelado em Relações Internacionais}
+%\curso{Curso de Licenciatura em Matemática}
+%\curso{Mestrado em Ensino de Matemática}
+%\curso{Doutorado em Matemática}
+%
+\local{São Bernardo do Campo, SP}
+%
+%
+% -------- Informações sobre o tipo de documento
+\tipotrabalho{Relatório}
+%\tipotrabalho{Monografia de final de curso}
+%\tipotrabalho{Dissertação de mestrado}
+%\tipotrabalho{Tese de doutorado}
+%
+\grau{BACHAREL em Planejamento Territorial}
+%\grau{LICENCIADO em Matemática}
+%\grau{MESTRE em Matemática}
+%\grau{DOUTOR em Ciências}
+%
+\ano{2018}
+\data{13 de Junho de 2018} % data da aprovação
+%
+%------Nomes do Orientador, examinadores.  
+\orientador{Rosana Denaldi}
+%\coorientador{Antonio da Silva} % opcional
+\examinadorum{Rosana Denaldi}
+%\examinadordois{Ivo Fernandez Lopez}
+%\examinadortres{Jeferson Leandro Garcia de Araújo}
+%\examinadorquatro{Antonio da Silva}
+%
+%--------- Títulos do Orientador e examinadores ----
+%\ttorientador{Bacharel em Física - UEFS}
+%\ttcoorientador{Doutor em Matemática - UFRJ} 
+%\ttexaminadorum{Doutor em Matemática - UFRJ}
+%\ttexaminadordois{Doutor em Matemática - UFRJ}
+%\ttexaminadortres{Doutor em Matemática - UFRJ}
+%\ttexaminadorquatro{Doutor em Matemática - UFRJ}
+%
+% ---
+% ---
+\begin{document}
+	
+	% ---
+	% Chamando o comando para imprimir a capa
+	\imprimircapa
+	% ---
+	% ---
+	% Chamando o comando para imprimir a folha de rosto
+	%\imprimirfolhaderosto
+	% ---
+	% ---
+	% Chamando o comando para imprimir a folha de aprovação
+	%\imprimirfolhadeaprovacao
+	% ---
+	% ---
+	% Dedicatória
+	% ---
+	%	\begin{dedicatoria}
+	%  	 \vspace*{\fill}
+	%  	 \centering
+	%  	 \noindent
+	%  	 \textit{ Este trabalho é dedicado a todos que, com entusiasmo,\\
+	%  	 		sonham e lutam por XYZ no ABCDEFG\\
+	%  			do XPTO.} \vspace*{\fill}
+	%	\end{dedicatoria}
+	%	
+	%	
+	%	\begin{agradecimentos}
+	%	Orientação do modelo: insira aqui um parágrafo
+	%	\end{agradecimentos}
+	%	
+	%	
+	%
+	%---------------------- EPÍGRAFE I (OPCIONAL)--------------
+	%\begin{epigrafe}
+	%    \vspace*{\fill}
+	%    \begin{flushright}
+	%        \textit{''Texto''\\
+	%        Autor}
+	%    \end{flushright}
+	%\end{epigrafe}
+	%
+	%
+	%
+	%--------Digite aqui o seu resumo em %Português--------------
+	%\begin{resumo}
+	%   Descrição. 
+	%
+	%   \vspace{\onelineskip}
+	%   \noindent
+	%   \textbf{Palavras-chaves}: Palavras.
+	%\end{resumo}
+	
+	
+	%
+	% --- resumo em inglês (abstract) ---
+	%\begin{resumo}[Abstract]
+	%   \begin{otherlanguage*}{english}
+	%      Description.
+	%
+	%      \vspace{\onelineskip}
+	%      \noindent
+	%      \textbf{Keywords}: Words.
+	%   \end{otherlanguage*}
+	%\end{resumo}
+	
+	%
+	%----Sumário, lista de figuras e lista de tabelas ------------
+	\tableofcontents 
+	%\newpage \listoffigures
+	%\newpage \listoftables
+	%---------------------
+	%--------------Início do Conteúdo---------------------------
+	% o comando textual é obrigatório e marca o ponto onde começa 
+	% a imprimir o número da página
+	\textual
+	%
+	%---------------------
+	%
+	
+	
+	%
+	% O conteúdo começa pra valer a seguir
+	%
+	
+	%
+	%===============================================================================
+	%
+	
+	% Endereço (URL) com as contribuições:
+	% https://docs.google.com/document/u/2/d/143q36Y_-ceCrlNMS_yC0Ep0uHopwndZcm3CsPGDeEjI
+	
+	\chapter{Contextualização do filme} \label{cap:contextualizacao}
+	% Responsável: Lorrayne (Lola)
+	% Escopo: não é resumo
+	
+	O documentário ``Um fio de esperança'' é uma produção brasileira e independente com o intuito de difundir a causa do povo saarauí, que teve parte de seu território ocupado pelo Marrocos desde 1975 e espera por um referendo de autodeterminação há mais de 26 anos. Hoje, o Saara Ocidental é considerado a última colônia da África, embora a \gls{polisario} tenha proclamado a \glsdesc{rasd} (conhecida como \gls{rasd}) desde janeiro de 1976 que ganhou reconhecimento por um número limitado de outros países, mas não foi admitida na \glsdesc{onu}.
+	
+	Isso aconteceu porque logo após a Marcha Verde, movimento de ocupação ordenado por Hassan II, sultão do Reino do Marrocos na época, a Espanha abandonou sua antiga colônia sem organizar o referendo de autodeterminação, abrindo espaço para que o Saara fosse reclamado tanto pelo Marrocos quanto pela Mauritânia, que alegaram vínculos históricos como justificativa para a disputa do território. Mais tarde foi revelado também o Acordo de Madrid, que estipulava que a Espanha transferiria a administração do território para uma administração tripartite temporária, composta por Espanha, Marrocos e Mauritânia. Aí tem início uma guerra de 16 anos pela independência do Saara Ocidental.
+	
+	A \gls{polisario} surgiu como um movimento independentista político-revolucionário lutando pela autonomia do território desde 1973, ainda contra a ocupação espanhola, mas hoje representa ideologicamente a verdadeira organização política do povo saarauí, tanto em seu território ocupado quanto em campos de refugiados. O documentário foca bastante na paciente espera dos saarauís pelo prometido referendo de autodeterminação, sempre adiado ou proposto de forma a beneficiar o Marrocos.
+	
+	Já o interesse marroquino no território é profundamente econômico e se encontra nas riquezas naturais, que atualmente são exploradas sem ressalva pelo Marrocos. Esse interesse estende-se também à França, Estados Unidos e Espanha, que mantém relações econômicas próximas do Reino do Marrocos e se beneficiam da extração da riqueza do território do Saara. Nesse contexto, temos a principal razão pelo pouco esforço da \gls{onu} em efetivamente resolver a questão ou sequer garantir os direitos humanos do povo sarauí.
+	
+	Outra abordagem importante que o documentário faz é a respeito do posicionamento brasileiro, já que o Brasil é um dos únicos países da América Latina que não reconhecem oficialmente a \glsdesc{rasd}.
+	
+	\section{Ideias principais} \label{sec:ideias_principais}
+	% Responsável: Henrique
+	
+	O documentário critica duramente a conduta da \glsdesc{onu} acerca do conflito envolvendo a \gls{polisario} com o Marrocos, e a situação precária em que se encontra o povo saarauí. A gênese do problema inicia-se em  1991, quando o Conselho de Segurança da \gls{onu} aprova a Resolução 690 por unanimidade, estabelecendo uma missão de paz no Saara Ocidental, a \glsdesc{minurso} (\gls{minurso}), que originalmente propunha garantir o cessar-fogo imediato entre ambos os lados; organizar e realizar um referendum, na qual a população escolheria entre ser incorporado pelo Marrocos ou se tornar independente; monitorar a posição das tropas marroquinas e polisárias; garantir que os direitos humanos fossem respeitados.
+	
+	Passados 25 anos, o cessar-fogo entre Marrocos e a \gls{polisario} foi o único objetivo alcançado pela \gls{minurso}. A \gls{onu} foi incapaz de realizar um referendum, pois o governo marroquino realizou diversas políticas de assentamento do Saara Ocidental, movendo cerca de 500 mil pessoas para o território que era originalmente ocupado pelo povo saarauí, impossibilitando a realização do referendum coeso de autodeterminação da população local. Houve a violação dos direitos humanos, com diversas denúncias de violência e desrespeito às populações civis saarauís nos territórios ocupados pelo Marrocos. A presença de 100 mil soldados marroquinas no Saara Ocidental e a construção de um muro de 2.700 km, marcou a incapacidade da \glsdesc{onu} em garantir a paz e a neutralidade do conflito.
+	
+	A França surge como um dos principais responsáveis para que o Saara Ocidental não se torne independente, seu poder de veto no Conselho de Segurança impede que haja qualquer intensificação da missão de paz, ou a imposição de sanções contra o Marrocos através da \gls{onu}. Além de apoiar militarmente e financeiramente o Marrocos no conflito.
+	
+	Dessa forma, o impasse de mais de duas décadas da \glsdesc{onu} sobre a independência do Saara Ocidental, somado às condições precárias em que a maior parte da população está submetida, têm levado a muitos saarauís em defender o retorno de um conflito armado para lutarem por sua independência. 
+	
+	\section{Ideias secundárias} \label{sec:ideias_outras}
+	% Responsável: Nicholas
+	
+	O documentário explora o fato do conflito entre saarauís e marroquinos ser pouco conhecido e pouco mencionado no Brasil, mesmo entre estudantes de geopolítica. Entre deputados e senadores também não há tanta discussão sobre o tema. Há um grande destaque para a postura oficial brasileira sobre esses conflitos, que é de completa omissão. Mesmo com o apoio e ativismo de alguns parlamentares brasileiros a favor do povo saarauí, não há oficialmente o reconhecimento da independência do Saara Ocidental, algo já feito pela maioria dos países da América Latina.
+	
+	Além da omissão, que em alguns momentos é considerada cumplicidade, há denúncias do Brasil manter relações comerciais com o Marrocos, muitas vezes comprando produtos que são retirados ilegalmente da região do Saara Ocidental, como fosfato e sardinha. O apoio do Brasil é cobrado pela \gls{polisario}, que consideram nosso país como sendo muito importante. Nosso apoio traria mais peso e importância para a questão sem grandes impactos negativos, pois nossa balança comercial com o Marrocos é pequena.
+	
+	Outro ponto interessante do documentário é a forma que as mulheres saarauís se organizam e o que elas representam nessa sociedade. Elas são muito fortes e ocupam uma posição de protagonismo. É mencionado por um dos entrevistados que na cultura deles a mulher é importante e considerada sagrada, algo que infelizmente as torna alvos. Nos conflitos, os marroquinos tendem a agredir principalmente as mulheres, que é uma forma de atingir física e psicologicamente o povo saarauí.
+	
+	Muitos abusos aos direitos humanos são relatados, principalmente nas áreas ocupadas, o que deixa clara a omissão da \gls{minurso}. Para alguns membros da \gls{polisario} fica a impressão de que eles estão ali apenas para ganhar dinheiro e aproveitar, pois, mesmo com diversas denúncias e pedidos, os abusos seguem ocorrendo. Isso demonstra uma certa fragilidade na atuação das Organizações Internacionais para manutenção da segurança em alguns países.
+	
+	\chapter{Análise e discussão} \label{cap:analise}
+	% Responsável: Caio
+	% Escopo: análise e debate de pelo menos 2 autores discutidos em sala de aula com citações diretas e indiretas
+	
+	Como melhor discutido no \autoref{cap:contextualizacao} (\nameref{cap:contextualizacao}), o documentário apresenta a causa da \glsdesc{rasd}, sendo possível identificar pelo menos as seguintes abordagens: entrevistas e filmagens no território reclamado pela \gls{polisario}, incluindo as áreas ocupadas pelo Reino do Marrocos e entrevistas em Brasília, no Distrito Federal, com membros do parlamento e outros atores sensíveis à causa. Cabe salientar que não há uma versão do conflito por parte de quaisquer representantes do Marrocos, sendo que antes dos créditos, é fornecida a informação de que o embaixador não aceitou gravar após uma conversa de três horas, da mesma maneira, o Ministério das Relações Exteriores da República Federativa do Brasil só aceitava falar extra-oficialmente sobre o tema e o Ministério da Defesa, alegadamente participante de missões de paz da \gls{minurso}, não autorizou a entrevista de oficiais participantes de missões no Saara Ocidental.
+	
+	% Sugestão do Henrique:
+	% Acho que daria pra relacionar com o expansionismo marroquino para o Saara Ocidental, com a questão de Ratzel sobre a importância de um grande território, e a mobilidade do território - migrações verdadeiras e politizadas.
+	
+	Analisando o documentário com vistas a relacionar o tema abordado com a bibliografia da disciplina, o primeiro ponto que pode ser apontado diz respeito à ligação entre o território e a população, ideia ligada à doutrina de Friedrich Ratzel (grifos nossos):
+	
+	\begin{citacao}
+		``Este é também o caso de um artigo seu que aparece publicado na França em 1898, intitulado " O solo, a sociedade e o Estado", no qual o autor repõe a sua idéia geral de que o desenvolvimento estatal é processo que depende da \textbf{estreita ligação orgânica do	povo com o solo}, extraindo daí o seu \textbf{conceito de Estado como organismo territorial}.'' \cite[p. 40]{costa1992}
+	\end{citacao}
+	
+	Considerando que segundo \citeonline[p. 81]{roseira2015}:
+	
+	\begin{citacao}
+		``Essa geopolítica é guiada por uma visualização do mundo em blocos de espaço. Almeja sempre a divisão e ordenação do espaço global em blocos rivais de poder. O que dá coesão a esses blocos é a posição geográfica, as alianças políticas e comerciais, a política imperialista, os sistemas de circulação continental ou ultramarina etc.''
+	\end{citacao}
+
+	A postura do reino que rivaliza com a \gls{polisario} parece ser favorecida pela manutenção do \textit{status quo} pela \glsdesc{onu}, que no documentário é retratada como um ator incapaz de exercer pressão a países como França (que apoia o Marrocos) e Espanha (que contribuiu para iniciar o conflito em primeiro lugar e tem se omitido). Neste sentido a visão geopolítica ratzeliana é suficientemente conveniente para que possamos mencioná-la ao lançar luz sobre o embate. Há, portanto, um alinhamento do Marrocos com blocos de poder que contribuem para não permitir uma solução definitiva, acirrando o conflito entre as partes diretamente envolvidas e a agonia da população que se encontra vivendo nos assentamentos das chamadas ``zonas liberadas'', livres da presença militar do Marrocos e cercadas pelo muro já mencionado na \autoref{sec:ideias_principais} (\nameref{sec:ideias_principais}). Como ``as capitais e as fronteiras que também emergem, tal como foram concebidas, de códigos semânticos constituem articulações da linguagem da geografia do Estado'' \cite[p. 25]{raffestin1993}, é no mínimo sintomática a ocupação de El Aiune pelo Marrocos, visto que esta cidade é a capital da \glsdesc{rasd}, o que força a \gls{polisario} a organizar a capital provisoriamente em Tifariti.
+
+	O documentário demonstra que apesar das características desfavoráveis da parcela do território \textit{de facto} sob domínio da \gls{polisario}, existe uma forte ideia de construção de um Estado com participação popular, protagonismo das mulheres e espírito combativo em defesa da identidade e autoafirmação independentista do povo saarauí. Ainda que militares e civis tenham externado desejo pela paz, há a crença de que retomar a luta armada pode ser a única forma de reivindicar a parcela do território ocupada pelo Marrocos, que tem explorado recursos naturais e obtido vantagens econômicas, inclusive praticando comércio com o Brasil.
+	
+	Outro aspecto que pode ser explorado, agora pela perspectiva marroquina, diz respeito à noção de expansionismo do autor, de corte malthusiano. Segundo \citeonline[p. 40--41]{costa1992}, na visão de Ratzel, o Estado ``deverá estar ciente de que o crescimento populacional, e conseqüentemente das necessidades de subsistência, pode criar sérios transtornos ao seu desenvolvimento''. Ora, ainda que o Marrocos não esteja temendo crises com a configuração original de seu território, excluindo a parcela do Saara Ocidental que suscita o objetivo, definitivamente os esforços envidados até agora indicam que aquele Estado está consciente de que promove um estrangulamento da população sobre tutela da \gls{polisario}, tanto que o documentário exibe não só reclamações da própria população, como também demonstra a necessidade de assistência externa e o boicote à inclusão econômica de indivíduos envolvidos com a \gls{polisario}, incluindo violações graves aos direitos humanos, como prática de cárcere em condições degradantes e tortura. Cabe também salientar que essa noção empregada por Ratzel se associa ao conceito de espaço vital, também empregado fortemente por Karl Haushofer\footnote{Espaço vital para Haushofer, conforme \citeonline[p. 139]{costa1992}:``Estratégia política para	os Estados, que leva em conta, necessariamente, a correspondência ideal entre a densidade populacional, os projetos de plena realização econômica e cultural das nações e a base territorial, indispensável ao pleno desenvolvimento de cada país.''}.
+	
+	Ainda com relação a Ratzel, pode-se também estabelecer um breve paralelo às ideias de coesão interna que este estabeleceu com relação à Alemanha de então e que, basicamente, se traduziam em soluções expansionistas (saída para o mar e pangermanismo europeu) \cite[p. 41]{costa1992}, e a postura do Marrocos, cuja ocupação do Saara Ocidental privilegia o acesso à maior parte da faixa litorânea, ampliando a costa do país e sua presença naquela parcela do Oceano Atlântico.
+	
+	Finalmente, o conceito de mobilidade das fronteiras\footnote{Segundo \citeonline[p. 37]{costa1992}, também chamada de ``mobilidade comandada por processos político-territoriais''} pode ser usado para refletirmos sobre a ocupação do Saara Ocidental pelo Marrocos, estimulando a presença de marroquinos nas cidades e parcelas do território pleiteadas pelos defensores da \glsdesc{rasd}. Este conceito de mobilidade também se atrela à guerra:
+	
+	\begin{citacao}
+		``Nos estágios superiores, diz ele, dada a consolidação dos Estados e territórios rigidamente delimitados por fronteiras, essa forma complexa	de mobilidade só pode ocorrer mediante as guerras, [\dots]
+		
+		Para ele, a simples declaração de guerra faz desaparecer as fronteiras, estabelecendo-se um novo espaço de circulação referido a um `todo territorial'.''
+	\end{citacao}
+	
+	\chapter{Crítica e considerações finais} \label{cap:final}
+	% Responsável: Gabriel, mas Caio fez dois parágrafos
+	
+	\section{Crítica} \label{sec:critica}
+	
+	É sempre uma tarefa não muito grata  abordar temas complexos sobre os quais a maior parte dos interlocutores possui pouco entendimento. Se há, por um lado, o risco de a mensagem ser passada de maneira muito técnica, o que agradaria apenas a públicos específicos, de outro, existe a ameaça da superficialidade. Tarefa não grata deste documentário que, no fim das contas, se sai bem.
+	
+	Negligenciado pelo mundo, o conflito no Saara Ocidental já dura mais de 40 anos, sendo este país a última colônia africana. Desde a desocupação espanhola, o povo saarauí luta contra a ocupação ilegal por parte do Marrocos. A apatia por parte dos países do ocidente e das Organizações Internacionais pode levar a conflito armado.
+	O documentário aqui analisado põe o espectador dentro do conflito, sempre de maneira muito crítica em relação à conduta brasileira a seu respeito. Seu tempo, curto, é muito bem aproveitado. A edição se concentra em dividir, de maneira bem coesa, todos os aspectos as serem tratados no longa. O documentário ``começa pelo final'', pelo desfecho da crítica dos autores, que se concentra na forma como o governo brasileiro se omite da situação e na forma como o assunto recebe pouca atenção no mundo. Em seguida, é estabelecido o cenário, o histórico do conflito é contado de maneira exitosa  com um roteiro bem escrito, detalhando a história saarauí desde as origens do atual impasse. São utilizadas entrevistas e imagens históricas, bem articuladas entre si, que correspondem bem ao roteiro.
+	
+	Impressiona também, por se tratar de uma produção independente, a forma pela qual o longa consegue prender o interlocutor à história. A trilha sonora ambientaliza muito bem aquilo que está sendo narrado e a fotografia, impecável, que, ao mesmo tempo que impressiona com as belezas do Saara, também nos deixa apreensivos com a forma crua de relatar a vida deste povo. 
+	
+	Após inserir-nos dentro da história e do cotidiano saarauí, ``Um Fio de Esperança'' constrói a imagem do que é a \glsdesc{rasd}. O documentário não nos apresenta um paraíso, onde existe um modelo de autogestão. Apresenta uma sociedade que sofre com a escassez, todavia consegue fazer um feito incrível, que é manter uma mínima organização. Há muita preocupação com o direitos das mulheres e com a educação, que recebe muito apoio de Cuba, o que contrasta com a posição omissa do Brasil. Aliás, contraste este feito de diversas formas durante o documentário.
+	
+	Por fim, contudo, há de se perceber um profundo ceticismo da população saarauí a respeito da \gls{onu}, do Brasil e o do ocidente de forma geral. Uma percepção de abandono, que para este povo significa que há apenas um fim: o confronto. Sentimento esse que o documentário consegue captar com êxito.
+	
+	\section{Considerações finais} \label{sec:final}
+	
+	% parte do Caio - início
+	O documentário é bastante interessante, pois concilia o retrato da vida do povo saarauí e posicionamentos diversos, que vão de habitantes das zonas ocupadas e liberadas do Saara Ocidental a políticos e atores diplomáticos que transitam em Brasília. A compartimentação do documentário contribui para situar o telespectador nos momentos da narrativa e, em situações como a chegada em uma das zonas liberadas, em meio à penumbra da noite e em pleno deserto, tenta esgotar a linguagem cinematográfica para compartilhar o drama daqueles que ali vivem.
+		
+	Observa-se a dificuldade de maior visibilidade à causa, dentro e fora do Brasil, com a luta autodeterminada se arrastando por mais de duas décadas, enquanto o país que contribuiu majoritariamente para a existência do conflito em primeiro lugar se omite, enquanto a França, aliada do Marrocos, acaba por agravar a situação, dando um verniz silenciador em relação à postura então pacifista da \gls{polisario}.
+	% parte do Caio - fim
+		
+	Não é fácil tratar de um assunto que, além de complexo, é negligenciado. Este documentário consegue superar essa dificuldade. De maneira direta e simples, porém acurada, consegue tratar assuntos complexos com muita seriedade, destacando a origem do conflito, os atuais envolvidos e as relações de poder no âmbito das relações internacionais que impedem uma solução justa e pacífica para o conflito no Saara Ocidental. Destarte, trata-se de uma verdadeira denúncia: o fato de, em pleno século XXI, ainda existir uma colônia africana e isso acontecer com o conhecimento e, diga-se, convivência das Organizações Internacionais e de países como o Brasil. 
+	
+	%===============================================================================
+	%
+	
+	% ----------------------------------------------------------
+	% ----------------------------------------------------------
+	\postextual
+	
+	
+	
+	% informa o arquivo com a bibliografia. Deve ser o mesmo nome
+	% (sem o sufixo) que será informado no ambiente filecontents
+	% que está no final deste arquivo. Neste exemplo foi usado 
+	% bibitemp.bib e bibtemp. Este comando insere a bibliografia
+	% nesta posição (antes dos apêndices, anexos, índice remissivo)
+	\bibliography{fontes}
+	
+	% ----------------------------------------------------------
+	% Glossário
+	% ----------------------------------------------------------
+
+	% ---
+	% Define nome e preâmbulo do glossário
+	% ---
+	\phantompart
+	\renewcommand{\glossaryname}{Glossário}
+	%\renewcommand{\glossarypreamble}{Esta é a descrição do glossário. Experimente visualizar outros estilos de glossários, como o \texttt{altlisthypergroup}, por exemplo.\\ \\}
+
+	% ---
+	% Traduções para o ambiente glossaries
+	% ---
+	\providetranslation{Glossary}{Glossário}
+	\providetranslation{Acronyms}{Siglas}
+	\providetranslation{Notation (glossaries)}{Notação}
+	\providetranslation{Description (glossaries)}{Descrição}
+	\providetranslation{Symbol (glossaries)}{Símbolo}
+	\providetranslation{Page List (glossaries)}{Lista de Páginas}
+	\providetranslation{Symbols (glossaries)}{Símbolos}
+	\providetranslation{Numbers (glossaries)}{Números} 
+	% ---
+	
+	% ---
+	% Estilo de glossário
+	% ---
+	%\setglossarystyle{index}
+	\setglossarystyle{altlisthypergroup}
+	%\setglossarystyle{tree}
+	
+	
+	% ---
+	% Imprime o glossário
+	% ---
+	\cleardoublepage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{\glossaryname}
+	\printglossaries
+	% ---
+	
+	% ----------------------------------------------------------
+	% Apêndices e anexos
+	% ----------------------------------------------------------
+	% Consultar documentação do abnTeX2 caso deseje incluir apêndices e/ou anexos
+	
+\end{document}
